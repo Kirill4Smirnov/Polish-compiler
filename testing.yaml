@@ -1,0 +1,21 @@
+tests:
+  - type: run-cmd
+    cmd: [build:test_polish_compiler]
+    profiles:
+      - asan
+      - debug
+      - release
+  - type: forbidden-patterns
+    token:
+      - <functional>
+      - dlopen
+      - dlclose
+  - type: report-score
+    task: polish-compiler
+  - type: run-cmd
+    cmd: [build:test_polish_compiler_tracing]
+    profiles: [asan, release]
+  - type: report-score
+    task: polish-compiler-tracing
+editable:
+  - src/*.{c,h}pp
